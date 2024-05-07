@@ -1,6 +1,9 @@
 import numpy as np
 import tensorflow as tf
 
+from RobustMockTeacher import MockNeuralNetwork
+
+
 def knowledge_distillation(teacher_model, student_model, num_samples, input_shape, batch_size, epochs):
     # Compile teacher model
     teacher_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
@@ -20,6 +23,11 @@ def knowledge_distillation(teacher_model, student_model, num_samples, input_shap
     student_model.fit(synthetic_data, synthetic_labels, batch_size=batch_size, epochs=epochs)
 
 
-//todo: change loss function
-//try generating huge no. of num of samples 
-//github pe daalna hai
+if __name__ == "__main__":
+    teacher = MockNeuralNetwork(42, 5, 1)
+    knowledge_distillation(teacher,teacher,10**6,(5, ),1000,100)
+
+
+# //todo: change loss function
+# //try generating huge no. of num of samples
+# //github pe daalna hai
