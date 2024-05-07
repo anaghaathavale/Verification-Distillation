@@ -1,6 +1,9 @@
 import numpy as np
 import tensorflow as tf
 
+
+from RobustMockTeacher import MockNeuralNetwork
+
 #loss function (same as the one in Definition 1.3 (form Shao et al) in the overleaf document)
 #y_true is the true label (from training dataset) 
 #y_pred_S and y_pred_T are the predictions of the student and teacher models respectively
@@ -39,6 +42,7 @@ def LGAD(x, y_true, y_pred_S, y_pred_T, lambda_CE, lambda_KL, lambda_GAD, temper
     return LGAD_loss
 
 
+
 def knowledge_distillation(teacher_model, student_model, num_samples, input_shape, batch_size, epochs):
     # Compile teacher model
     teacher_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
@@ -62,5 +66,7 @@ def knowledge_distillation(teacher_model, student_model, num_samples, input_shap
 
 
 
-
+if __name__ == "__main__":
+    teacher = MockNeuralNetwork(42, 5, 1)
+    knowledge_distillation(teacher,teacher,10**6,(5, ),1000,100)
 
